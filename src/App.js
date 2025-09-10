@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import LoginForm from "./components/LoginForm";
@@ -21,6 +21,29 @@ const PublicRoute = ({ children }) => {
 };
 
 function App() {
+  // تطبيق الوضع الداكن عند تحميل التطبيق
+  useEffect(() => {
+    // التحقق أولاً من إعدادات التطبيق
+    const savedSettings = localStorage.getItem("appSettings");
+    if (savedSettings) {
+      const settings = JSON.parse(savedSettings);
+      if (settings.darkMode) {
+        document.documentElement.classList.add("dark");
+        return;
+      }
+    }
+    
+     const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+      return;
+    }
+    
+     if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
   return (
     <ErrorBoundary>
       <div className="App">

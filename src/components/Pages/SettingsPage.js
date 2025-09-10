@@ -1,25 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Button from "../UI/Button";
 import { showSuccess } from "../../utils/sweetAlert";
 
 const SettingsPage = () => {
   const { user } = useSelector((state) => state.auth);
-  const [settings, setSettings] = useState({
-    notifications: true,
-    emailUpdates: false,
-    darkMode: false,
-    language: "ar",
-    postsPerPage: 10,
+  const [settings, setSettings] = useState(() => {
+     const savedSettings = localStorage.getItem("appSettings");
+    if (savedSettings) {
+      return JSON.parse(savedSettings);
+    }
+    return {
+      notifications: true,
+      emailUpdates: false,
+      darkMode: false,
+      language: "ar",
+      postsPerPage: 10,
+    };
   });
+  
+   useEffect(() => {
+    if (settings.darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [settings.darkMode]);
 
   const [isSaving, setIsSaving] = useState(false);
 
   const handleSettingChange = (key, value) => {
-    setSettings((prev) => ({
-      ...prev,
+    const newSettings = {
+      ...settings,
       [key]: value,
-    }));
+    };
+    setSettings(newSettings);
+    
+      localStorage.setItem("appSettings", JSON.stringify(newSettings));
+    
+     if (key === "darkMode") {
+      if (value) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+    }
   };
 
   const handleSave = async () => {
