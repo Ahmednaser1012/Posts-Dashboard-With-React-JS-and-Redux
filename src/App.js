@@ -21,10 +21,8 @@ const PublicRoute = ({ children }) => {
 };
 
 function App() {
-  // تطبيق الوضع الداكن عند تحميل التطبيق
-  useEffect(() => {
-    // التحقق أولاً من إعدادات التطبيق
-    const savedSettings = localStorage.getItem("appSettings");
+   useEffect(() => {
+     const savedSettings = localStorage.getItem("appSettings");
     if (savedSettings) {
       const settings = JSON.parse(savedSettings);
       if (settings.darkMode) {

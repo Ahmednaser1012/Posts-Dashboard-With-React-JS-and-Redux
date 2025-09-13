@@ -137,7 +137,7 @@ export const addPost = (postData) => async (dispatch, getState) => {
     dispatch(addPostSuccess(newPost));
     return newPost;
   } catch (error) {
-    throw new Error('فشل في إضافة البوست');
+    throw new Error('Error adding post');
   }
 };
 
@@ -154,7 +154,7 @@ export const updatePost = (id, postData) => async (dispatch) => {
     dispatch(updatePostSuccess({ ...data, id }));
     return data;
   } catch (error) {
-    throw new Error('فشل في تعديل البوست');
+    throw new Error('Error updating post');
   }
 };
 
@@ -165,7 +165,7 @@ export const deletePost = (id) => async (dispatch) => {
     });
     dispatch(deletePostSuccess(id));
   } catch (error) {
-    throw new Error('فشل في حذف البوست');
+    throw new Error('Error deleting post');
   }
 };
 
