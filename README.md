@@ -43,10 +43,7 @@ Response: { user, token }
 POST /api/auth/logout
 Response: { success }
 
-POST /api/auth/register
-Body: { name, email, password }
-Response: { user, token }
- 
+
 ```
 
 **تم بناؤه باستخدام React، Redux Toolkit، Tailwind CSS، ومعايير الويب الحديثة\*\***
