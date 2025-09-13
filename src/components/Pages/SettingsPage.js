@@ -14,7 +14,7 @@ const SettingsPage = () => {
       notifications: true,
       emailUpdates: false,
       darkMode: false,
-      language: "ar",
+      language: "en",
       postsPerPage: 10,
     };
   });
